@@ -1,127 +1,133 @@
+I apologize for the hassle! Depending on the platform you're using to chat with me, direct file downloads aren't always supported.
+
+To get this into your project right away, simply copy the raw text below and paste it into a new file named `readme.md` in the root directory of your repository:
+
+```markdown
 # UniHub
 
-## Overview
+UniHub is an integrated student support ecosystem designed to streamline academic management. The platform consists of a native Android client application providing a modern user interface, backed by a robust Python Flask server that leverages Machine Learning for grade prediction and a Retrieval-Augmented Generation (RAG) pipeline for AI-powered academic advisory responses.
 
-`UniHub` is a student support project combining:
-- an Android client app under `src/Android/UniHub`
-- a Python Flask backend under `src/Server`
+## Key Features
 
-The Android application uses Retrofit to communicate with the server, while the server provides:
-- grade prediction functionality
-- AI-powered study guide responses using the `odhgos_spoydwn.pdf`
-- course and grade retrieval endpoints
+* **Academic Performance Tracking:** Securely retrieve and archive course grades directly via automated portal scraping.
+* **Predictive Analytics:** Grade forecasting built on cosine similarity models to project academic performance in upcoming semesters.
+* **Intelligent Study Guide (RAG):** An AI assistant capable of answering complex curriculum and policy queries using institutional documentation (`odhgos_spoydwn.pdf`).
 
-## Repository Structure
+---
 
-- `src/Android/UniHub/`
-  - Android Studio project for the UniHub mobile app
-  - `app/` contains the application module
-- `src/Server/`
-  - Python backend and data assets
-  - `app_connection.py` is the Flask API entrypoint
-  - `grade_prediction.py` contains the prediction logic
-  - `model.py` builds the RAG model from the study guide PDF
-  - `transformed_courses.json` contains course data served by the API
-  - `course_labeled.csv`, `labels.csv` are used for grade prediction
-  - `odhgos_spoydwn.pdf` is the study guide used for AI responses
+## Project Architecture
 
-## Android App
+```text
+unihub/
+├── src/
+│   ├── Android/
+│   │   └── UniHub/                # Native Android Studio Project (Java)
+│   │       └── app/               # Application module source and assets
+│   └── Server/                    # Python Flask Microservice Backend
+│       ├── app_connection.py      # WSGI/Flask Application Entry Point
+│       ├── grade_prediction.py    # Cosine Similarity Engine
+│       ├── model.py               # LangChain & Vector Embeddings Pipeline
+│       └── scrape.py              # Portal Integration Script
 
-### Key details
-- Android client source is Java under `app/src/main/java/com/example/unihub`
-- Gradle Kotlin DSL project configuration
-- `compileSdk` and `targetSdk` set to 35
-- Minimum supported Android API level: 23
-- `applicationId`: `com.example.unihub`
-
-### Main dependencies
-- AndroidX AppCompat
-- Material components
-- ConstraintLayout
-- Navigation components
-- Retrofit 2.9.0 with Gson converter
-
-### Running the Android app
-
-1. Open `src/Android/UniHub` in Android Studio.
-2. Sync Gradle and build the project.
-3. Run the `app` module on an emulator or physical device.
-
-## Python Server
-
-### Entry point
-- `src/Server/app_connection.py`
-
-### API endpoints
-- `POST /predict_grade`
-  - expects JSON with `target_course` and `grades`
-  - returns a predicted grade and contributing course data
-- `POST /ai_model`
-  - expects JSON with `input`
-  - returns an answer based on the study guide PDF
-- `GET /get_courses`
-  - returns the contents of `transformed_courses.json`
-- `POST /get_grades`
-  - expects JSON with `username` and `password`
-  - returns scraped grade data from the student portal
-
-### Model setup
-- `src/Server/model.py` loads `odhgos_spoydwn.pdf`
-- Builds a retrieval-augmented generation (RAG) chain using:
-  - `langchain`
-  - `HuggingFaceEmbeddings`
-  - `Chroma`
-  - `ChatOllama`
-
-### Grade prediction logic
-- `src/Server/grade_prediction.py`
-- Uses `pandas`, `scikit-learn`, and cosine similarity to compute a predicted grade
-- Generates top contributing courses for the prediction
-
-### Required files
-- `src/Server/odhgos_spoydwn.pdf`
-- `src/Server/transformed_courses.json`
-- `src/Server/course_labeled.csv`
-- `src/Server/labels.csv`
-- `src/Server/direction.json`
-
-### Notes
-- The `/get_grades` endpoint depends on a `scrape.py` module, which must be present in the same directory to function correctly.
-- `src/Server/app_connection.py` initializes the AI model on startup, so the Flask server may take extra time to begin serving requests.
-
-## Setup Recommendations
-
-### Python environment
-
-Create a virtual environment and install packages required for Flask, data processing, and the language model stack.
-
-Example:
-```bash
-cd src/Server
-python -m venv venv
-source venv/-r requirements.txt
-pip install flask pandas scikit-learn langchain langchain-llama langchain-huggingface langchain-community chromadb
 ```
 
-> If your project already has a dependency file, install from it instead.
+---
 
-### Running the server
+## Tech Stack
+
+### Android Client
+
+* **Language:** Java
+* **Target SDK:** 35 (Minimum SDK: 23)
+* **Networking:** Retrofit 2.9.0 with Type-Safe Gson Converters
+* **UI Architecture:** Material Components, ConstraintLayout, Jetpack Navigation Components
+
+### Server Backend
+
+* **Core Framework:** Python Flask
+* **Data Science:** Pandas, Scikit-Learn
+* **AI Engine:** LangChain, HuggingFace Embeddings, ChromaDB, ChatOllama
+
+---
+
+## Getting Started
+
+### Backend Deployment
+
+#### Prerequisites
+
+* Python 3.10 or higher
+* An active local instance of **Ollama** running the target LLM configuration.
+
+#### Installation & Execution
+
+1. Navigate to the server repository and initialize a virtual environment:
 
 ```bash
-cd src/Server
-python app_connection.py
+   cd src/Server
+   python -m venv venv
+   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+
 ```
 
-The server starts on `http://0.0.0.0:5002` by default.
+2. Install the production dependencies:
+
+```bash
+   pip install flask pandas scikit-learn langchain langchain-huggingface langchain-community chromadb
+
+```
+
+3. Ensure the following mandatory data assets are placed in `src/Server/`:
+* `odhgos_spoydwn.pdf` (Institutional Study Guide)
+* `transformed_courses.json` (Formatted Course Data)
+* `course_labeled.csv` & `labels.csv` (Training datasets for grade prediction)
+* `direction.json` & `scrape.py`
+
+
+4. Launch the application server:
+
+```bash
+   python app_connection.py
+
+```
+
+> **Note:** The server binds to `http://0.0.0.0:5002` by default. Initial startup may take a moment while loading the vector embeddings and the HuggingFace transformer model into memory.
+
+### Android Client Deployment
+
+1. Launch **Android Studio** (Ladybug or newer recommended).
+2. Select **Open An Existing Project** and direct it to `src/Android/UniHub`.
+3. Synchronize the project with its Gradle files using the Kotlin DSL configuration.
+4. Set up an Android Virtual Device (AVD) running API Level 23 or higher.
+5. Deploy the application by executing the `app` module.
+
+---
+
+## API Reference Manual
+
+### Core Endpoints
+
+| Method | Endpoint | Payload Format | Description |
+| --- | --- | --- | --- |
+| `POST` | `/predict_grade` | `{"target_course": "String", "grades": {}}` | Computes the predicted grade using peer matrix correlation and lists top contributing modules. |
+| `POST` | `/ai_model` | `{"input": "String"}` | Queries the vector database and generates context-aware replies via the RAG pipeline. |
+| `GET` | `/get_courses` | *None* | Exposes cached curriculum structures parsed from `transformed_courses.json`. |
+| `POST` | `/get_grades` | `{"username": "String", "password": "String"}` | Authenticates against the external student portal using `scrape.py` to extract realtime grades. |
+
+---
 
 ## Troubleshooting
 
-- If the Android app cannot reach the backend, ensure the Flask server is running and the device/emulator network allows access.
-- If `/get_grades` fails, verify that `scrape.py` exists and the student portal credentials are correct.
-- If the AI endpoint fails, confirm the `odhgos_spoydwn.pdf` file is present and readable.
+### Connectivity & Network Failures
 
-## Optional Improvements
+* **Emulator Isolation:** Cleartext HTTP traffic or local loops (`127.0.0.1`) are restricted by default in Android SDK 35. For local debugging on an emulator, configure your Retrofit base URL to use the host loopback alias: `http://10.0.2.2:5002`.
+* **Production Deployment:** Ensure proper network routing or update the network security configuration file (`network_security_config.xml`) within the Android project settings to permit unsecured HTTP testing if applicable.
 
-- add a `requirements.txt` or `pyproject.toml` for the Python backend
-- add Kotlin-specific documentation for Android navigation destinations and Retrofit interfaces
-- implement error handling and logging for missing backend dependencies
+### Missing Dependency Failures
+
+* **Scraper Errors:** If the `/get_grades` route fails with 500-series status codes, confirm that `scrape.py` is present in the execution path and that browser drivers or structural updates to the student portal have not broken parsing rules.
+* **Vector Engine Failures:** Ensure that `odhgos_spoydwn.pdf` is fully legible, text-extractable, and not password-locked. If Chroma initialization fails, remove the local persistent index directory and restart the server to allow rebuilding the database embeddings.
+
+```
+
+```
