@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/menu_background"
+        android:scaleType="centerCrop" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/bgr"
+            android:padding="10dp">
+
+
+            <ImageButton
+                android:id="@+id/logoutButton"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:contentDescription="Logout"
+                android:background="@android:color/transparent"
+                android:src="@drawable/logout"
+                android:scaleType="centerInside" />
+
+
+            <ImageView
+                android:id="@+id/logoImage"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/app_logo" />
+
+
+
+        </RelativeLayout>
+
+        <!-- MAIN CONTENT -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="120dp">
+
+            <!-- TOP CIRCLE -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/mathimataNumber"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:text="5"
+                    android:textColor="#000000"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/circle_inner" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Μαθήματα"
+                    android:textColor="#FFFF"
+                    android:background="@drawable/bgr3"
+                    android:layout_marginTop="8dp"
+                    android:paddingHorizontal="5dp" />
+
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="25dp">
+
+                <ProgressBar
+                    android:id="@+id/moProgress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:max="100"
+                    android:progress="0"
+                    android:rotation="-90"
+                    android:progressDrawable="@drawable/circle_progress" />
+
+                <TextView
+                    android:id="@+id/moText"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Μ.Ο. 7.0"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+                    android:background="@drawable/circle_inner" />
+
+            </FrameLayout>
+
+            <!-- BOTTOM CIRCLE -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="25dp">
+
+                <TextView
+                    android:id="@+id/EctsNumber"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textColor="#000000"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/circle_inner" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ects"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/bgr3"
+                    android:layout_marginTop="8dp"
+                    android:paddingHorizontal="5dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomMenu"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="12dp"
+            android:background="@drawable/bottom_nav_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:id="@+id/btn_menu"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/nav_active_bg">
+
+                <ImageView
+                    android:id="@+id/icon_menu"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/house"
+                    app:tint="#FFFFFF"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_progress"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/nav_selector">
+
+                <ImageView
+                    android:id="@+id/icon_progress"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/progress_icon"
+                    app:tint="#FFFFFF"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_calendar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/nav_selector">
+
+                <ImageView
+                    android:id="@+id/icon_calendar"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/calendar_icon"
+                    app:tint="#FFFFFF"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_ai"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/nav_selector">
+
+                <ImageView
+                    android:id="@+id/icon_ai"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ai_info"
+                    app:tint="#FFFFFF"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

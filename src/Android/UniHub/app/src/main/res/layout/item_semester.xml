@@ -1,0 +1,41 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/card_background"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtAverage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Μ.Ο"
+            android:textColor="#1A2B5B"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:id="@+id/txtSemesterTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Εξάμηνο"
+            android:textColor="#1A2B5B"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_toStartOf="@id/txtAverage"
+            android:layout_marginEnd="10dp"/>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCourses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>
