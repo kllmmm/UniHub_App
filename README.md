@@ -1,8 +1,4 @@
-I apologize for the hassle! Depending on the platform you're using to chat with me, direct file downloads aren't always supported.
 
-To get this into your project right away, simply copy the raw text below and paste it into a new file named `readme.md` in the root directory of your repository:
-
-```markdown
 # UniHub
 
 UniHub is an integrated student support ecosystem designed to streamline academic management. The platform consists of a native Android client application providing a modern user interface, backed by a robust Python Flask server that leverages Machine Learning for grade prediction and a Retrieval-Augmented Generation (RAG) pipeline for AI-powered academic advisory responses.
