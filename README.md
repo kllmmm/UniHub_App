@@ -382,18 +382,6 @@ Android App → (Retrofit) → Flask API → (Scraping/ML) → Response JSON →
 | Calendar events disappear | Events stored locally; check app file permissions |
 | Emulator cannot reach `10.0.2.2` | Use device IP instead; or configure emulator network settings |
 
----
-
-## Future Enhancements
-
-- Push notifications for upcoming deadlines
-- Sync calendar events to device calendar
-- Dark mode support
-- Support for multiple specializations
-- Real-time course availability notifications
-- Offline mode with cached course data
-- Grade export (PDF report)
-- Study recommendations based on course history
 
 ---
 
