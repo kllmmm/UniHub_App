@@ -119,7 +119,7 @@ public class AiChatActivity extends AppCompatActivity {
 
                             Log.d("API_SUCCESS", response.body().toString());
 
-                            aiMessage = preapreString(response.body().toString());
+                            aiMessage = stringPreprocess(response.body().toString());
 
                             new Handler().postDelayed(() -> {
 
@@ -195,11 +195,10 @@ public class AiChatActivity extends AppCompatActivity {
 
     //--------------------------------------Methods--------------------------------------//
     @NonNull
-    public static String preapreString(String input) {
+    public static String stringPreprocess(String input) {
         if (input == null || input.isEmpty()) {
             return "";
         }
-
 
         String prefix = "\"response\":\"";
         int startIndex = input.indexOf(prefix);
@@ -217,14 +216,13 @@ public class AiChatActivity extends AppCompatActivity {
 
         String extractedText = input.substring(startIndex, endIndex);
 
+        // Replace the literal escaped sequences with actual Java control characters
         return extractedText
-                .replace("\\n", " ")
-                .replace("\n", " ")
-                .replace("\\\"", "\"")
-                .replace("\\t*", " ")
-                .replace("\\t+", " ")
-                .replace("\\t", " ")
-                .replace("*", " ");
+                .replace("\\n", "\n")    // 1. Translates literal "\n" into an ACTUAL new line
+                .replace("\\t", "\t")    // 2. Translates literal "\t" into an ACTUAL tab space
+                .replace("\\\"", "\"")   // 3. Unescapes quotes (e.g., \"Word\" -> "Word")
+                .replace("\\\\", "\\")   // 4. Safety catch: Unescapes literal backslashes
+                .trim();                 // 5. Cleans up any trailing spaces at the very beginning/end
     }
 
     private void hideAll() {
